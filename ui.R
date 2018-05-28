@@ -22,6 +22,7 @@ shinyUI(navbarPage(
         selectInput("artist",
           label = "Select an Artist",
           choices = list(
+            "Top 10" = "all",
             "Ariana Grande" = "ariana",
             "Britney Spears" = "spears",
             "Carly Jepsen" = "jepsen",
@@ -36,16 +37,16 @@ shinyUI(navbarPage(
         ),
 
         # Input to enter variable to scatter plot
-        sliderInput("year_range",
-                    label = "Select a Year Range",
-                    min = 1999, max = 2018, value = 2008)
+        dateRangeInput("date", strong("Date range"), 
+                       start = "2007-01-01", end = "2017-07-31",
+                       min = "2007-01-01", max = "2017-07-31")
       ),
 
       # Display plotly scatter plot
       mainPanel(
         tabsetPanel(
           type = "tabs",
-          tabPanel("Plot", plotOutput("plot")),
+          tabPanel("Plot", plotOutput("date")),
           tabPanel("Table", tableOutput("table"))
         )
       )
