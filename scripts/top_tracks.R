@@ -1,18 +1,17 @@
 # Get data for artists' top 10 tracks
 library(httr)
-
-# Source in the code for getting data from spotify (POST)
+library(lubridate)
 source("spotify_source_code.R")
 
 # Create a data frame that contains information about the top tracks of an
 # artist,including release dates of albums which the tracks belong to, the
 # albums' names, the tracks' names, the tracks' number in the albums, popularity
 # of the tracks, and the tracks' links to Spotify
-top_tracks <- function(artist) {
+top_tracks <- function(artist_last_name, full_name) {
 
   # Get data about an artist after searching his/her name
   search_uri <- paste0(
-    "https://api.spotify.com/v1/search?q=", artist,
+    "https://api.spotify.com/v1/search?q=", artist_last_name,
     "&type=artist"
   )
   response1 <- GET(url = search_uri, add_headers(Authorization = header_value))
@@ -47,22 +46,23 @@ top_tracks <- function(artist) {
   track_number <- unlist(data[["track_number"]])
   popularity <- unlist(data[["popularity"]])
   link <- album_data_frame[["spotify"]]
+  artist_name <- full_name
   data_frame <- data.frame(
-    release_date, album_name, track_name, track_number, popularity, link
+    release_date, album_name, track_name, track_number, popularity, link, artist_name
   )
 }
 
 # Get top tracks for different artists
-ariana_grande_tracks <- top_tracks("grande")
-britney_spears_tracks <- top_tracks("spears")
-carly_jepsen_tracks <- top_tracks("jepsen")
-justin_timberlake_tracks <- top_tracks("timberlake")
-katy_perry_tracks <- top_tracks("katy")
-lady_gaga_tracks <- top_tracks("lady")
-maroon5_tracks <- top_tracks("maroon")
-pink_tracks <- top_tracks("pink")
-taylor_swift_tracks <- top_tracks("taylor")
-the_chainsmokers_tracks <- top_tracks("chainsmokers")
+ariana_grande_tracks <- top_tracks("grande", "Ariana Grande")
+britney_spears_tracks <- top_tracks("spears", "Britney Spears")
+carly_jepsen_tracks <- top_tracks("jepsen", "Carly Jepsen")
+justin_timberlake_tracks <- top_tracks("timberlake", "Justin Timberlake")
+katy_perry_tracks <- top_tracks("katy", "Katy Perry")
+lady_gaga_tracks <- top_tracks("lady", "Lady Gaga")
+maroon5_tracks <- top_tracks("maroon", "Maroon 5")
+pink_tracks <- top_tracks("pink", "Pink")
+taylor_swift_tracks <- top_tracks("taylor", "Taylor Swift")
+the_chainsmokers_tracks <- top_tracks("chainsmokers", "The Chainsmokers")
 
 # Combine top tracks of different artists in a data frame
 combined_data_frame <- do.call("rbind", list(
@@ -74,3 +74,31 @@ combined_data_frame <- do.call("rbind", list(
   taylor_swift_tracks,
   the_chainsmokers_tracks
 ))
+
+
+
+
+build_popularity_scatter <- function(data, artist = "", year) {
+  ymax <- max(data[, "popularity"]) * 1.2
+
+  data <- data %>%
+    filter(grepl(artist, list(
+      "Ariana Grande", "Britney Spears", "Carly Jepsen",
+      "Justin Timberlake", "Katy Perry", "Lady Gaga",
+      "Maroon 5", "Pink", "Taylor Swift",
+      "The Chainsmokers"
+    ))) %>%
+  filter(subset(format.Date(released_date, "%Y")<=year))
+
+  plot_ly(combined_data_frame,
+    x = c(1999:2018), y = ~ popularity, type = "scatter",
+    name = "Popularity"
+  ) %>%
+    layout(
+      title = "Popularity of Artists' Top 10 tracks",
+      xaxis = (title = "Top 10 Tracks"),
+      yaxis = (title = "Popularity"),
+      margin = list(b = 100)
+    ) %>%
+    return()
+}
