@@ -32,7 +32,3 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
-# Spotify_key
-spotify_source_code.R
-
-
