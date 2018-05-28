@@ -2,7 +2,7 @@
 library(httr)
 
 # Source in the code for getting data from spotify (POST)
-source("spotify_source_code.R")
+source("scripts/spotify_source_code.R")
 
 # Create a data frame that contains information about the top tracks of an
 # artist,including release dates of albums which the tracks belong to, the
