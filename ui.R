@@ -12,8 +12,6 @@ year <- combined_data_frame$year %>%
   unique() %>%
   as.character()
 
-
-
 shinyUI(navbarPage(
   "Information about Artists on Spotify",
   
@@ -44,8 +42,8 @@ shinyUI(navbarPage(
       # Display plotly scatter plot
       mainPanel(tabsetPanel(
         type = "tabs",
-        tabPanel("Scatter", plotOutput("scatter")),
-        tabPanel("Table", DT::dataTableOutput("table"))
+        tabPanel("Scatter", plotlyOutput("scatter")),
+          tabPanel("Table", DT::dataTableOutput("table"))
       ))
     )
   )
