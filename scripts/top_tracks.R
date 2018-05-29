@@ -53,7 +53,7 @@ top_tracks <- function(full_name) {
   popularity <- unlist(data[["popularity"]])
   link <- album_data_frame[["spotify"]]
   data_frame <- data.frame(
-    release_date, year, album_name, track_name, track_number, popularity, link, artist_name
+    year, release_date, artist_name, track_name, album_name, track_number, popularity, link
   )
 }
 
@@ -81,5 +81,3 @@ combined_data_frame <- do.call("rbind", list(
   taylor_swift_tracks,
   the_chainsmokers_tracks
 ))
-
-

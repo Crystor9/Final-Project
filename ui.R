@@ -2,7 +2,7 @@ library(shiny)
 library(plotly)
 library(dplyr)
 library(ggplot2)
-
+library(DT)
 source("scripts/top_tracks.R")
 
 artists <- combined_data_frame$artist_name %>%
@@ -42,8 +42,8 @@ shinyUI(navbarPage(
       # Display plotly scatter plot
       mainPanel(tabsetPanel(
         type = "tabs",
-        tabPanel("Scatter", plotOutput("scatter")),
-        tabPanel("Table", plotOutput("table"))
+        tabPanel("Scatter", plotlyOutput("scatter")),
+          tabPanel("Table", DT::dataTableOutput("table"))
       ))
     )
   ),
