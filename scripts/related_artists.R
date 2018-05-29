@@ -50,7 +50,7 @@ related_artists <- function(artist) {
   # Creates and returns a new data frame.
   df <- data.frame("Name" = artist_names, "Type" = artist_type, "Num_Followers" = num_followers_df, 
                    "Popularity" = artist_popularity, "Link" = link_data_frame)
-  df <- head(df, 5)
+  df <- head(df, 10)
 }
 
 ariana_grande_related_artists <- related_artists("grande")
