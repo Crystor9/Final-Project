@@ -8,7 +8,6 @@ library(DT)
 
 source("scripts/top_tracks.R")
 source("scripts/build_scatter.R")
-source("scripts/build_table.R")
 
 # Start shinyServer
 shinyServer(function(input, output) {
@@ -38,6 +37,6 @@ shinyServer(function(input, output) {
       data <- data %>%
         filter(year == input$year)
     }
-    return(build_table(data))
+    data
   }))
 })
