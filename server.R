@@ -5,6 +5,7 @@ library(rsconnect)
 library(shiny)
 library(httr)
 library(DT)
+
 source("scripts/top_tracks.R")
 source("scripts/build_scatter.R")
 
@@ -25,6 +26,7 @@ shinyServer(function(input, output) {
     }
     return(build_scatter(data))
   })
+  
   output$table <- DT::renderDataTable(DT::datatable({
     data <- combined_data_frame
     if (input$artist != "ALL") {

@@ -2,7 +2,7 @@ library(shiny)
 library(plotly)
 library(dplyr)
 library(ggplot2)
-
+library(DT)
 source("scripts/top_tracks.R")
 
 artists <- combined_data_frame$artist_name %>%
@@ -11,6 +11,8 @@ artists <- combined_data_frame$artist_name %>%
 year <- combined_data_frame$year %>%
   unique() %>%
   as.character()
+
+
 
 shinyUI(navbarPage(
   "Information about Artists on Spotify",
@@ -43,7 +45,7 @@ shinyUI(navbarPage(
       mainPanel(tabsetPanel(
         type = "tabs",
         tabPanel("Scatter", plotOutput("scatter")),
-        tabPanel("Table", plotOutput("table"))
+        tabPanel("Table", DT::dataTableOutput("table"))
       ))
     )
   )

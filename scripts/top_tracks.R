@@ -81,5 +81,5 @@ combined_data_frame <- do.call("rbind", list(
   taylor_swift_tracks,
   the_chainsmokers_tracks
 ))
-
+combined_data_frame$track_name <- paste0("<a href=\"", combined_data_frame$link, "\">", combined_data_frame$track_name, "</a>")
 
