@@ -3,29 +3,25 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 
-source("scripts/top_tracks.R")
-
-build_popularity_scatter <- function(data, year) {
-  ymax <- max(data[, "popularity"]) * 1.2
-  
-  data <- data %>%
-    filter(grepl(artist, list(
-      "Ariana Grande", "Britney Spears", "Carly Jepsen",
-      "Justin Timberlake", "Katy Perry", "Lady Gaga",
-      "Maroon 5", "Pink", "Taylor Swift",
-      "The Chainsmokers"
-    ))) %>%
-    filter(subset(format.Date(released_date, "%Y")<=year))
-  
-  plot_ly(combined_data_frame,
-          x = c(1999:2018), y = ~ popularity, type = "scatter",
-          name = "Popularity"
+build_scatter <- function(data) {
+  p <- plot_ly(
+    data,
+    x = ~ artist_name,
+    y = ~ popularity,
+    color = ~ release_date,
+    type = "scatter",
+    text = paste(
+      "Track:",
+      data$track_name,
+      "<br>Album:",
+      data$album_name,
+      "<br>Time:",
+      data$release_date
+    )
   ) %>%
-    layout(
-      title = "Popularity of Artists' Top 10 tracks",
-      xaxis = (title = "Top 10 Tracks"),
-      yaxis = (title = "Popularity"),
-      margin = list(b = 100)
-    ) %>%
-    return()
+    layout(xaxis = list(title = "", tickangle = -45),
+           margin = list(b = 100),
+           mode = "scatter")
+  p
 }
+

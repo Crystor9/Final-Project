@@ -7,21 +7,24 @@ library(httr)
 
 source("scripts/top_tracks.R")
 source("scripts/build_scatter.R")
-source("scripts/build_table.R")
+
 
 # Start shinyServer
 shinyServer(function(input, output) {
-  output$table <- renderTable({
-    if (input$artist == "all") {
-      return (build_table(combined_data_frame))
-    } else {
-      data <- top_tracks(input$artists)
-      return(build_table(data))
-    }
-  })
   
   # Return a scatter plot
-  output$plot <- renderPlotly({
-    return(build_popularity_scatter(combined_data_frame, input$artist, input$year_range))
+  output$scatter <- renderPlotly({
+    data <- combined_data_frame
+    if (input$artist != "ALL") {
+      data <- data %>%
+        filter(artist_name == input$artist)
+    } 
+    if (input$year != "ALL") {
+      data <- data %>%
+        filter(year == input$year)
+    }
+  
+   build_scatter(data)
   })
+  
 })

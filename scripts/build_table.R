@@ -4,7 +4,9 @@ library(ggplot2)
 library(dplyr)
 
 source("scripts/top_tracks.R")
+
 data <- top_tracks("taylor")
+
 p <- plot_ly(
   type = 'table',  # Specify type of plot as table
   

@@ -11,8 +11,9 @@ source("scripts/spotify_source_code.R")
 # artist,including release dates of albums which the tracks belong to, the
 # albums' names, the tracks' names, the tracks' number in the albums, popularity
 # of the tracks, and the tracks' links to Spotify
-top_tracks <- function(artist_last_name, full_name) {
-
+top_tracks <- function(full_name) {
+  last_name_index <- regexpr(" ", full_name) + 1
+  artist_last_name <- substr(full_name, last_name_index, nchar(full_name))
   # Get data about an artist after searching his/her name
   search_uri <- paste0(
     "https://api.spotify.com/v1/search?q=", artist_last_name,
@@ -44,29 +45,32 @@ top_tracks <- function(artist_last_name, full_name) {
   album_data_frame <- do.call("rbind", lapply(album_column, turn_data_frame))
 
   # Create a data frame
+  artist_name <- full_name
   release_date <- album_data_frame[["release_date"]]
+  year <- substr(release_date, 1, 4)
   album_name <- album_data_frame[["name"]]
   track_name <- unlist(data[["name"]])
   track_number <- unlist(data[["track_number"]])
   popularity <- unlist(data[["popularity"]])
   link <- album_data_frame[["spotify"]]
-  artist_name <- full_name
   data_frame <- data.frame(
-    release_date, album_name, track_name, track_number, popularity, link, artist_name
+    release_date, year, album_name, track_name, track_number, popularity, link, artist_name
   )
 }
 
+
+
 # Get top tracks for different artists
-ariana_grande_tracks <- top_tracks("grande", "Ariana Grande")
-britney_spears_tracks <- top_tracks("spears", "Britney Spears")
-carly_jepsen_tracks <- top_tracks("jepsen", "Carly Jepsen")
-justin_timberlake_tracks <- top_tracks("timberlake", "Justin Timberlake")
-katy_perry_tracks <- top_tracks("katy", "Katy Perry")
-lady_gaga_tracks <- top_tracks("lady", "Lady Gaga")
-maroon5_tracks <- top_tracks("maroon", "Maroon 5")
-pink_tracks <- top_tracks("pink", "Pink")
-taylor_swift_tracks <- top_tracks("taylor", "Taylor Swift")
-the_chainsmokers_tracks <- top_tracks("chainsmokers", "The Chainsmokers")
+ariana_grande_tracks <- top_tracks("Ariana Grande")
+britney_spears_tracks <- top_tracks("Britney Spears")
+carly_jepsen_tracks <- top_tracks("Carly Jepsen")
+justin_timberlake_tracks <- top_tracks("Justin Timberlake")
+katy_perry_tracks <- top_tracks("Katy Perry")
+lady_gaga_tracks <- top_tracks("Lady Gaga")
+maroon5_tracks <- top_tracks("Maroon 5")
+pink_tracks <- top_tracks("Pink")
+taylor_swift_tracks <- top_tracks("Taylor Swift")
+the_chainsmokers_tracks <- top_tracks("The Chainsmokers")
 
 # Combine top tracks of different artists in a data frame
 combined_data_frame <- do.call("rbind", list(
@@ -78,6 +82,5 @@ combined_data_frame <- do.call("rbind", list(
   taylor_swift_tracks,
   the_chainsmokers_tracks
 ))
-
 
 
