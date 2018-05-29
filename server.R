@@ -4,7 +4,7 @@ library(plotly)
 library(rsconnect)
 library(shiny)
 library(httr)
-
+library(DT)
 source("scripts/top_tracks.R")
 source("scripts/build_scatter.R")
 
@@ -23,8 +23,18 @@ shinyServer(function(input, output) {
       data <- data %>%
         filter(year == input$year)
     }
-  
-   build_scatter(data)
+    return(build_scatter(data))
   })
-  
+  output$table <- DT::renderDataTable(DT::datatable({
+    data <- combined_data_frame
+    if (input$artist != "ALL") {
+      data <- data %>%
+        filter(artist_name == input$artist)
+    } 
+    if (input$year != "ALL") {
+      data <- data %>%
+        filter(year == input$year)
+    }
+    return(data)
+  }))
 })

@@ -1,14 +1,16 @@
 library(shiny)
 library(plotly)
-
+library(dplyr)
 library(ggplot2)
 
 source("scripts/top_tracks.R")
 
 artists <- combined_data_frame$artist_name %>%
-  unique()
+  unique() %>%
+  as.character()
 year <- combined_data_frame$year %>%
-  unique()
+  unique() %>%
+  as.character()
 
 shinyUI(navbarPage(
   "Information about Artists on Spotify",
@@ -26,22 +28,23 @@ shinyUI(navbarPage(
         selectInput(
           "artist",
           label = "Select an Artist",
-          choices = c("ALL", as.character(artists))
+          choices = c("ALL", artists)
         ),
         
         # Input to enter variable to scatter plot
         selectInput(
           "year",
           label = "Select a year",
-          choices = c("ALL", as.character(year))
+          choices = c("ALL", year)
         )
       ),
       
       # Display plotly scatter plot
-      mainPanel(tabsetPanel(type = "tabs",
-                            tabPanel(
-                              "Scatter", plotOutput("scatter")
-                            )))
+      mainPanel(tabsetPanel(
+        type = "tabs",
+        tabPanel("Scatter", plotOutput("scatter")),
+        tabPanel("Table", plotOutput("table"))
+      ))
     )
   )
 ))
