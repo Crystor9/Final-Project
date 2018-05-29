@@ -21,9 +21,11 @@ build_scatter <- function(data) {
       data$release_date
     )
   ) %>%
-    layout(xaxis = list(title = "", tickangle = -45),
-           margin = list(b = 100),
-           mode = "scatter")
+    layout(
+      title = "Popularity of Artists' Top Tracks",
+      xaxis = list(title = "Artists", tickangle = -45),
+      yaxis = list(title = "Popularity"),
+      margin = list(b = 100),
+      mode = "scatter")
   p
 }
-

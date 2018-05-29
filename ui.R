@@ -3,6 +3,7 @@ library(plotly)
 library(dplyr)
 library(ggplot2)
 library(DT)
+library(shinythemes)
 source("scripts/top_tracks.R")
 
 artists <- combined_data_frame$artist_name %>%
@@ -12,8 +13,17 @@ year <- combined_data_frame$year %>%
   unique() %>%
   as.character()
 
-shinyUI(navbarPage(
-  "Information about Artists on Spotify",
+shinyUI(navbarPage(theme = shinytheme("sandstone"),
+  "Spotify Artists",
+  
+  # Write a project overview tab
+  tabPanel(
+    "Overview",
+    titlePanel(""),
+    mainPanel(
+      includeHTML("project.html")
+    )
+  ),
   
   # Create a tab panel for a below poverty line-population scatter plot
   tabPanel(
@@ -31,7 +41,7 @@ shinyUI(navbarPage(
           choices = c("ALL", artists)
         ),
         
-        # Input to enter variable to scatter plot
+        # Input to select variable to scatter plot
         selectInput(
           "year",
           label = "Select a year",
