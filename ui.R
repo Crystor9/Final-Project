@@ -59,15 +59,22 @@ shinyUI(navbarPage(theme = shinytheme("sandstone"),
     )
   ),
   
+  # making a new tab for related artist
   tabPanel(
     "Related Artists",
     titlePanel("Related Artists followers"),
     # Create a sidebar layout for this tab 
     sidebarLayout(sidebarPanel(
           selectInput(
-            "xvar",
+            "related",
             label = "Select an artist",
-            choices = combined_df$Name
+            #"grande"
+            choices = c("All", "Ariana Grande" = "grande", 
+                        "Britney Spears" = "spears", "Carly Jepsen" = "jepsen",
+                        "timberlake" = "Justin Timberlake", "Katy Perry" = "katy",
+                        "Lady Gaga" = "lady", "Maroon 5" = "maroon",
+                        "Pink" = "pink", "Taylor Swift" = "taylor", 
+                        "The Chainsmokers" = "chainsmokers")
           ) 
     ),
     

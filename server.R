@@ -43,6 +43,11 @@ shinyServer(function(input, output) {
   }))
   
   output$pie <- renderPlotly({
-    return(build_pie(combined_df, input$xvar))
+  if(input$related != "All") {
+    data = related_artists(input$related)
+  } else {
+    data = combined_df
+  }
+    return(build_pie(data, input$related))
   })
 })
