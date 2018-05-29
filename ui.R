@@ -46,5 +46,24 @@ shinyUI(navbarPage(
         tabPanel("Table", plotOutput("table"))
       ))
     )
+  ),
+  
+  tabPanel(
+    "Related Artists",
+    titlePanel("Related Artists followers"),
+    # Create a sidebar layout for this tab 
+    sidebarLayout(sidebarPanel(
+          selectInput(
+            "xvar",
+            label = "Select an artist",
+            choices = combined_data_frame$Name
+          ) 
+    ),
+    
+    # Create a main panel to display your plot
+    mainPanel(
+      plotlyOutput("pie")
+    )
   )
+    )
 ))
