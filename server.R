@@ -39,4 +39,8 @@ shinyServer(function(input, output) {
     }
     data
   }))
+  
+  output$pie <- renderPlotly({
+    return(build_pie(combined_data_frame, input$xvar))
+  })
 })
