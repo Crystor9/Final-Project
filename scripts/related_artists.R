@@ -53,26 +53,19 @@ related_artists <- function(artist) {
   df <- head(df, 10)
 }
 
-ariana_grande_related_artists <- related_artists("grande")
-britney_spears_related_artists <- related_artists("spears")
-carly_jepsen_related_artists <- related_artists("jepsen")
-justin_timberlake_related_artists <- related_artists("timberlake")
-katy_perry_related_artists<- related_artists("katy")
-lady_gaga_related_artists <- related_artists("lady")
-maroon5_related_artists <- related_artists("maroon")
-pink_related_artists <- related_artists("pink")
-taylor_swift_related_artists <- related_artists("taylor")
-the_chainsmokers_related_artists <- related_artists("chainsmokers")
 
-combined_df <- do.call("rbind", list(
-  ariana_grande_related_artists, britney_spears_related_artists,
-  carly_jepsen_related_artists,
-  justin_timberlake_related_artists,
-  katy_perry_related_artists, lady_gaga_related_artists,
-  maroon5_related_artists, pink_related_artists,
-  taylor_swift_related_artists,
-  the_chainsmokers_related_artists
-))
+# Get's the related artist based on name passed as parameter. 
+
+get_related_artists <- function(artist_name) {
+  return(related_artists(artist_name))
+}
+
+artist_names <- c("grande", "spears", "jepsen", "timberlake", "katy", "lady",
+                  "maroon", "pink",  "taylor", "chainsmokers")
+
+combined_df <- lapply(artist_names, get_related_artists)
+
+combined_df <- do.call("rbind", combined_df)
 
 column_names <- c("Name", "Type", "Num_Followers", "Popularity", "Link")
 colnames(combined_df) <- column_names
