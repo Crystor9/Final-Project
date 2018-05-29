@@ -14,9 +14,10 @@ year <- combined_data_frame$year %>%
   unique() %>%
   as.character()
 
-shinyUI(navbarPage(theme = shinytheme("sandstone"),
+shinyUI(navbarPage(
+  theme = shinytheme("sandstone"),
   "Spotify Artists",
-  
+
   # Write a project overview tab
   tabPanel(
     "Overview",
@@ -25,12 +26,12 @@ shinyUI(navbarPage(theme = shinytheme("sandstone"),
       includeHTML("project.html")
     )
   ),
-  
+
   # Create a tab panel for a below poverty line-population scatter plot
   tabPanel(
     "Top Tracks",
     titlePanel("Top 10 Tracks of Artists"),
-    
+
     # Create sidebar layout
     sidebarLayout(
       # Side panel for controls
@@ -41,7 +42,7 @@ shinyUI(navbarPage(theme = shinytheme("sandstone"),
           label = "Select an Artist",
           choices = c("ALL", artists)
         ),
-        
+
         # Input to select variable to scatter plot
         selectInput(
           "year",
@@ -49,39 +50,41 @@ shinyUI(navbarPage(theme = shinytheme("sandstone"),
           choices = c("ALL", year)
         )
       ),
-      
+
       # Display plotly scatter plot
       mainPanel(tabsetPanel(
         type = "tabs",
         tabPanel("Scatter", plotlyOutput("scatter")),
-          tabPanel("Table", DT::dataTableOutput("table"))
+        tabPanel("Table", DT::dataTableOutput("table"))
       ))
     )
   ),
-  
+
   # making a new tab for related artist
   tabPanel(
     "Related Artists",
     titlePanel("Related Artists followers"),
-    # Create a sidebar layout for this tab 
-    sidebarLayout(sidebarPanel(
-          selectInput(
-            "related",
-            label = "Select an artist",
-            #"grande"
-            choices = c("All", "Ariana Grande" = "grande", 
-                        "Britney Spears" = "spears", "Carly Jepsen" = "jepsen",
-                        "timberlake" = "Justin Timberlake", "Katy Perry" = "katy",
-                        "Lady Gaga" = "lady", "Maroon 5" = "maroon",
-                        "Pink" = "pink", "Taylor Swift" = "taylor", 
-                        "The Chainsmokers" = "chainsmokers")
-          ) 
-    ),
-    
-    # Create a main panel to display your plot
-    mainPanel(
-      plotlyOutput("pie")
+    # Create a sidebar layout for this tab
+    sidebarLayout(
+      sidebarPanel(
+        selectInput(
+          "related",
+          label = "Select an artist",
+          choices = c("All",
+            "Ariana Grande" = "grande",
+            "Britney Spears" = "spears", "Carly Jepsen" = "jepsen",
+            "Justin Timberlake" = "timberlake", "Katy Perry" = "katy",
+            "Lady Gaga" = "lady", "Maroon 5" = "maroon",
+            "Pink" = "pink", "Taylor Swift" = "taylor",
+            "The Chainsmokers" = "chainsmokers"
+          )
+        )
+      ),
+
+      # Create a main panel to display the pie plot
+      mainPanel(
+        plotlyOutput("pie")
+      )
     )
   )
-    )
 ))
