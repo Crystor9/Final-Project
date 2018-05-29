@@ -7,7 +7,9 @@ library(httr)
 library(DT)
 
 source("scripts/top_tracks.R")
+source("scripts/related_artists.R")
 source("scripts/build_scatter.R")
+source("scripts/build_pie.R")
 
 # Start shinyServer
 shinyServer(function(input, output) {
@@ -41,6 +43,6 @@ shinyServer(function(input, output) {
   }))
   
   output$pie <- renderPlotly({
-    return(build_pie(combined_data_frame, input$xvar))
+    return(build_pie(combined_df, input$xvar))
   })
 })

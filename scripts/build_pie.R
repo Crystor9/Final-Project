@@ -1,7 +1,7 @@
 library(dplyr)
 library(plotly)
 
-source("related_artists.R")
+source("scripts/related_artists.R")
 
 
 

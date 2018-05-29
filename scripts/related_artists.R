@@ -3,7 +3,7 @@ library(httr)
 library(plyr)
 
 # Sources spotify API using POST.
-source("spotify_source_code.R")
+source("scripts/spotify_source_code.R")
 
 related_artists <- function(artist) { 
   # Get data about an artist using search library.
@@ -64,7 +64,7 @@ pink_related_artists <- related_artists("pink")
 taylor_swift_related_artists <- related_artists("taylor")
 the_chainsmokers_related_artists <- related_artists("chainsmokers")
 
-combined_data_frame <- do.call("rbind", list(
+combined_df <- do.call("rbind", list(
   ariana_grande_related_artists, britney_spears_related_artists,
   carly_jepsen_related_artists,
   justin_timberlake_related_artists,
@@ -75,5 +75,5 @@ combined_data_frame <- do.call("rbind", list(
 ))
 
 column_names <- c("Name", "Type", "Num_Followers", "Popularity", "Link")
-colnames(combined_data_frame) <- column_names
+colnames(combined_df) <- column_names
 

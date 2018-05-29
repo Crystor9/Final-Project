@@ -5,6 +5,7 @@ library(ggplot2)
 library(DT)
 library(shinythemes)
 source("scripts/top_tracks.R")
+source("scripts/related_artists.R")
 
 artists <- combined_data_frame$artist_name %>%
   unique() %>%
@@ -66,7 +67,7 @@ shinyUI(navbarPage(theme = shinytheme("sandstone"),
           selectInput(
             "xvar",
             label = "Select an artist",
-            choices = combined_data_frame$Name
+            choices = combined_df$Name
           ) 
     ),
     
