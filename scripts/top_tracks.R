@@ -35,7 +35,6 @@ top_tracks <- function(full_name) {
 
   # Turn the list of data that contains nested lists into a data frame
   data <- data.frame(t(sapply(tracks_data$tracks, c)))
-
   # Take the album column of the data frame that contains nested lists and turn
   # it into a data frame
   album_column <- data[, "album"]
@@ -43,7 +42,7 @@ top_tracks <- function(full_name) {
     data.frame(list, stringsAsFactors = FALSE)
   }
   album_data_frame <- do.call("rbind", lapply(album_column, turn_data_frame))
-
+  
   # Create a data frame
   artist_name <- full_name
   release_date <- album_data_frame[["release_date"]]
