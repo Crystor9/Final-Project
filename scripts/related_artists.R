@@ -48,7 +48,7 @@ related_artists <- function(artist) {
   artist_type <- data["type"]
   
   # Creates and returns a new data frame.
-  df <- data.frame("Name" = artist_names, "Num_Followers" = num_followers_df, 
+  df <- data.frame("Name" = artist_names, "Type" = artist_type, "Num_Followers" = num_followers_df, 
                    "Popularity" = artist_popularity, "Link" = link_data_frame)
   df <- head(df, 5)
 }
@@ -74,4 +74,6 @@ combined_data_frame <- do.call("rbind", list(
   the_chainsmokers_related_artists
 ))
 
+column_names <- c("Name", "Type", "Num_Followers", "Popularity", "Link")
+colnames(combined_data_frame) <- column_names
 
