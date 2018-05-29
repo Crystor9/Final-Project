@@ -3,6 +3,8 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 
+source("scripts/top_tracks.R")
+
 build_scatter <- function(data) {
   p <- plot_ly(
     data,
