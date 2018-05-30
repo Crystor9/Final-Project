@@ -6,7 +6,8 @@ library(plyr)
 source("scripts/spotify_source_code.R")
 
 related_artists <- function(artist) { 
-  # Get data about an artist using search library.
+  
+  # Create a data frame displaying 10 related artists based on the artist name passed as a parameter
   search_uri <- paste0(
     "https://api.spotify.com/v1/search?q=", artist,
     "&type=artist"
@@ -56,14 +57,15 @@ related_artists <- function(artist) {
 
 
 # Get's the related artist based on name passed as parameter. 
-
 get_related_artists <- function(artist_name) {
   return(related_artists(artist_name))
 }
 
+# Top artists 
 artist_names <- c("grande", "spears", "jepsen", "timberlake", "katy", "lady",
                   "maroon", "pink",  "taylor", "chainsmokers")
 
+# Create data frame of artists related to the top ones. 
 combined_df <- lapply(artist_names, get_related_artists)
 
 combined_df <- do.call("rbind", combined_df)

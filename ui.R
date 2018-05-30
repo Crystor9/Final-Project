@@ -7,6 +7,8 @@ library(shinythemes)
 source("scripts/top_tracks.R")
 source("scripts/related_artists.R")
 
+# Create UI of the shiny app page, displaying various User input interfaces and visualizations according
+# to the given data 
 artists <- combined_data_frame$artist_name %>%
   unique() %>%
   as.character()
@@ -60,7 +62,7 @@ shinyUI(navbarPage(
     )
   ),
 
-  # making a new tab for related artist
+  # Create new tab for related artists. 
   tabPanel(
     "Related Artists",
     titlePanel("Related Artists followers"),
@@ -83,14 +85,31 @@ shinyUI(navbarPage(
         textInput(
           "yvar",
           label = "Type artist's first name for related artists (For Table)",
-          value = "taylor"
+          value = "Taylor"
         )
       ),
 
-      # Create a main panel to display the pie plot
+      # Create a main panel to display information regarding related artists
       mainPanel(tabsetPanel(
-        tabPanel("Pie Chart",plotlyOutput("pie")),
-        tabPanel("Search Artists", tableOutput("table_2"))
+        
+        # Display Pie chart
+        tabPanel(
+          "Pie Chart",
+          br(),
+          p("The", strong("Pie Chart"), "below displays similar artists 
+                          and music composers based on the top tracks played worldwide. The user can
+                          then choose a particular artist to display information related to them."),
+          br(),
+          plotlyOutput("pie")
+          ),
+         
+        # Create tabPanel which displays a table for the related artists based on user input       
+        tabPanel(
+          "Search Artists", 
+          br(),
+          p("This table Displays", strong("Ten Artists"), "Related to your favourite artist"),
+          tableOutput("table_2")),
+          br()
         )
       )
     )

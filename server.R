@@ -29,6 +29,7 @@ shinyServer(function(input, output) {
     return(build_scatter(data))
   })
 
+  # Return a table for top tracks 
   output$table <- DT::renderDataTable(DT::datatable({
     data <- combined_data_frame
     if (input$artist != "ALL") {
@@ -41,7 +42,8 @@ shinyServer(function(input, output) {
     }
     data
   }))
-  # Return the pie chart
+  
+  # Return a pie chart for related artists information 
   output$pie <- renderPlotly({
     if (input$related != "All") {
       data <- related_artists(input$related)
@@ -51,5 +53,6 @@ shinyServer(function(input, output) {
     return(build_pie(data, input$related))
   })
   
+  # Return a table for related artists based on user input
   output$table_2 <- renderTable(related_artists(input$yvar))
 })
