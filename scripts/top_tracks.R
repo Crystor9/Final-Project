@@ -3,7 +3,7 @@ library(httr)
 library(lubridate)
 
 # Source in the code for getting data from spotify (POST)
-source("scripts/spotify_source_code.R")
+source("scripts/spotify-source-code.R")
 
 # A function that builds a data frame containing information about the top
 # tracks of an artist, including release dates of albums which the tracks belong
