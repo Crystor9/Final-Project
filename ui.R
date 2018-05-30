@@ -9,10 +9,10 @@ source("scripts/related_artists.R")
 
 # Create UI of the shiny app page, displaying various User input interfaces and
 # visualizations according to the given data
-artists <- combined_data_frame$Artist %>%
+artists <- combined_data_frame$artist_name %>%
   unique() %>%
   as.character()
-year <- combined_data_frame$Release_Year %>%
+year <- combined_data_frame$year %>%
   unique() %>%
   as.character()
 

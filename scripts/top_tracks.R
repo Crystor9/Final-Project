@@ -64,17 +64,6 @@ top_tracks <- function(full_name) {
     popularity,
     link
   )
-  colnames(df) <-
-    c(
-      "Release_Year",
-      "Release_Date",
-      "Artist",
-      "Track",
-      "Album",
-      "Track_Number",
-      "Popularity",
-      "Link"
-    )
   df <- head(df, 10)
 }
 
