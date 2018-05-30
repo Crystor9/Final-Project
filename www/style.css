@@ -1,12 +1,12 @@
 body {
-  background-image: url("../imgs/spotify_background.png");
+  background-color: #E6E9EB;
 }
 
 
 #tabs {
   overflow: hidden;
-  font-family: "Comic Sans MS";
-  color: #84bd00;
+  font-family: "Montserrat";
+  color: gray;
 }
 
 .green-text {
