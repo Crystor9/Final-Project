@@ -98,6 +98,13 @@ shinyUI(navbarPage(
             "Pink" = "pink", "Taylor Swift" = "taylor",
             "The Chainsmokers" = "chainsmokers"
           )
+        ),
+        
+        textInput(
+          "yvar",
+          label = "Search related artists using the first name of choice artist 
+                  (For Table)",
+          value = "Marshmello"
         )
       ),
 
