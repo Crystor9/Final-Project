@@ -64,3 +64,7 @@ The next 2 tabs display varied visualizations with respect to the Spotify data. 
 * Jiajun Li
 * Ranjith Ramkishore
 * Yin Chen
+
+### Website Link
+
+https://yinchen0504.shinyapps.io/Final-Project/
