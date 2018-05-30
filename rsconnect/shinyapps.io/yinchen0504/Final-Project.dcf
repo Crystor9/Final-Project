@@ -5,8 +5,8 @@ account: yinchen0504
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 350991
-bundleId: 1399906
+bundleId: 1400003
 url: https://yinchen0504.shinyapps.io/Final-Project/
-when: 1527666589.2774
+when: 1527669701.59632
 asMultiple: FALSE
 asStatic: FALSE

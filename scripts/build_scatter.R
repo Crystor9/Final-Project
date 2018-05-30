@@ -15,7 +15,7 @@ build_scatter <- function(data) {
     y = ~ Popularity,
     color = ~ Release_Date,
     type = "scatter",
-
+    
     # Display album name, track name, and release date when hover over
     text = paste(
       "Track:",
@@ -35,3 +35,4 @@ build_scatter <- function(data) {
     )
   p
 }
+
