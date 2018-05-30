@@ -7,8 +7,8 @@ library(shinythemes)
 source("scripts/top_tracks.R")
 source("scripts/related_artists.R")
 
-# Create UI of the shiny app page, displaying various User input interfaces and visualizations according
-# to the given data 
+# Create UI of the shiny app page, displaying various User input interfaces and
+# visualizations according to the given data
 artists <- combined_data_frame$artist_name %>%
   unique() %>%
   as.character()
@@ -29,7 +29,8 @@ shinyUI(navbarPage(
     )
   ),
 
-  # Create a tab panel for a below poverty line-population scatter plot
+  # Create a tab panel for displaying a scatter plot and table of different
+  # artists' top 10 tracks
   tabPanel(
     "Top Tracks",
     titlePanel("Top 10 Tracks of Artists"),
@@ -48,7 +49,7 @@ shinyUI(navbarPage(
         # Input to select variable to scatter plot
         selectInput(
           "year",
-          label = "Select a year",
+          label = "Select a Track Release Year",
           choices = c("ALL", year)
         )
       ),
@@ -56,22 +57,39 @@ shinyUI(navbarPage(
       # Display plotly scatter plot
       mainPanel(tabsetPanel(
         type = "tabs",
-        tabPanel("Scatter", plotlyOutput("scatter")),
-        tabPanel("Table", DT::dataTableOutput("table"))
+        tabPanel(
+          "Scatter",
+          br(),
+          p("The", strong("scatter plot"), "displays popularity of different
+            artists' top tracks. Users can choose how the data to be displayed
+            based on selection of artist's name and year of tracks released."),
+          br(),
+          plotlyOutput("scatter")
+        ),
+        tabPanel(
+          "Table",
+          br(),
+          p("This", strong("table"), "displays the release date, artist's name,
+            track name, album name, track number in the album, poplarity of the
+            track and link to the track based on user's selection of artist and
+            track's release year."),
+          DT::dataTableOutput("table")
+        )
       ))
     )
   ),
 
-  # Create new tab for related artists. 
+  # Create new tab for related artists.
   tabPanel(
     "Related Artists",
     titlePanel("Related Artists followers"),
+
     # Create a sidebar layout for this tab
     sidebarLayout(
       sidebarPanel(
         selectInput(
           "related",
-          label = "Select an artist",
+          label = "Select an Artist",
           choices = c("All",
             "Ariana Grande" = "grande",
             "Britney Spears" = "spears", "Carly Jepsen" = "jepsen",
@@ -80,38 +98,34 @@ shinyUI(navbarPage(
             "Pink" = "pink", "Taylor Swift" = "taylor",
             "The Chainsmokers" = "chainsmokers"
           )
-        ),
-        
-        textInput(
-          "yvar",
-          label = "Type artist's first name for related artists (For Table)",
-          value = "Taylor"
         )
       ),
 
       # Create a main panel to display information regarding related artists
       mainPanel(tabsetPanel(
-        
+
         # Display Pie chart
         tabPanel(
           "Pie Chart",
           br(),
-          p("The", strong("Pie Chart"), "below displays similar artists 
-                          and music composers based on the top tracks played worldwide. The user can
-                          then choose a particular artist to display information related to them."),
+          p("The", strong("Pie Chart"), "below displays similar artists
+            and music composers based on the top tracks played worldwide. The
+            user can then choose a particular artist to display information
+            related to them."),
           br(),
           plotlyOutput("pie")
-          ),
-         
-        # Create tabPanel which displays a table for the related artists based on user input       
+        ),
+
+        # Create tabPanel which displays a table for the related artists based
+        # on user input
         tabPanel(
-          "Search Artists", 
+          "Search Artists",
           br(),
-          p("This table Displays", strong("Ten Artists"), "Related to your favourite artist"),
-          tableOutput("table_2")),
-          br()
+          p("This table displays", strong("Ten Artists"), "related to your
+            favorite artist"),
+          tableOutput("table_2")
         )
-      )
+      ))
     )
   )
 ))
