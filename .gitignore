@@ -32,6 +32,7 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
-# hide source code
-*.spotify_source_code.R
+
+spotify_source_code.R
+
 
