@@ -17,12 +17,16 @@ year <- combined_data_frame$year %>%
   as.character()
 
 shinyUI(navbarPage(
-  theme = shinytheme("sandstone"),
+  theme = "style.css",
   "Spotify Artists",
+  id = "tabs",
 
   # Write a project overview tab
   tabPanel(
-    "Overview",
+    div(
+      class = "tab-title",
+      
+    "Overview"),
     titlePanel(""),
     mainPanel(
       includeHTML("project.html")
@@ -39,18 +43,22 @@ shinyUI(navbarPage(
     sidebarLayout(
       # Side panel for controls
       sidebarPanel(
-        # Input to select variable to scatter plot
-        selectInput(
-          "artist",
-          label = "Select an Artist",
-          choices = c("ALL", artists)
-        ),
+        div(
+          class = "green-text",
 
-        # Input to select variable to scatter plot
-        selectInput(
-          "year",
-          label = "Select a Track Release Year",
-          choices = c("ALL", year)
+          # Input to select variable to scatter plot
+          selectInput(
+            "artist",
+            label = "Select an Artist",
+            choices = c("ALL", artists)
+          ),
+
+          # Input to select variable to scatter plot
+          selectInput(
+            "year",
+            label = "Select a Track Release Year",
+            choices = c("ALL", year)
+          )
         )
       ),
 
@@ -87,45 +95,58 @@ shinyUI(navbarPage(
     # Create a sidebar layout for this tab
     sidebarLayout(
       sidebarPanel(
-        selectInput(
-          "related",
-          label = "Select an Artist",
-          choices = c("All",
-            "Ariana Grande" = "grande",
-            "Britney Spears" = "spears", "Carly Jepsen" = "jepsen",
-            "Justin Timberlake" = "timberlake", "Katy Perry" = "katy",
-            "Lady Gaga" = "lady", "Maroon 5" = "maroon",
-            "Pink" = "pink", "Taylor Swift" = "taylor",
-            "The Chainsmokers" = "chainsmokers"
+        div(
+          class = "green-text",
+
+          selectInput(
+            "related",
+            label = "Select an Artist",
+            choices = c("All",
+              "Ariana Grande" = "grande",
+              "Britney Spears" = "spears", "Carly Jepsen" = "jepsen",
+              "Justin Timberlake" = "timberlake", "Katy Perry" = "katy",
+              "Lady Gaga" = "lady", "Maroon 5" = "maroon",
+              "Pink" = "pink", "Taylor Swift" = "taylor",
+              "The Chainsmokers" = "chainsmokers"
+            )
+          ),
+          
+          textInput(
+            "yvar",
+            label = "Type Artist's First Name for Related Artists (For Table)",
+            value = "Taylor"
           )
         )
       ),
 
       # Create a main panel to display information regarding related artists
-      mainPanel(tabsetPanel(
+      mainPanel(
+        tabsetPanel(
 
-        # Display Pie chart
-        tabPanel(
-          "Pie Chart",
-          br(),
-          p("The", strong("Pie Chart"), "below displays similar artists
+          # Display Pie chart
+          tabPanel(
+            "Pie Chart",
+            br(),
+            p("The", strong("Pie Chart"), "below displays similar artists
             and music composers based on the top tracks played worldwide. The
             user can then choose a particular artist to display information
             related to them."),
-          br(),
-          plotlyOutput("pie")
-        ),
+            br(),
+            plotlyOutput("pie")
+          ),
 
-        # Create tabPanel which displays a table for the related artists based
-        # on user input
-        tabPanel(
-          "Search Artists",
-          br(),
-          p("This table displays", strong("Ten Artists"), "related to your
+          # Create tabPanel which displays a table for the related artists based
+          # on user input
+          tabPanel(
+            "Search Artists",
+            br(),
+            p("This table displays", strong("Ten Artists"), "related to your
             favorite artist"),
-          tableOutput("table_2")
+            tableOutput("table_2")
+          )
         )
-      ))
+
+      )
     )
   )
 ))

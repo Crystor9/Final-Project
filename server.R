@@ -68,18 +68,5 @@ shinyServer(function(input, output) {
   })
   
   # Return a table for related artists based on user input
-  output$table_2 <- renderTable({
-    data <- combined_df
-    if (input$related != "All") {
-      data <- related_artists(input$related)
-    }
-    colnames(data) <- c(
-      "Name",
-      "Type",
-      "Number of Followers",
-      "Popularity",
-      "Link"
-    )
-    data
-  })
+  output$table_2 <- renderTable(related_artists(input$yvar))
 })
