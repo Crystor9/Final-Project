@@ -68,5 +68,11 @@ shinyServer(function(input, output) {
   })
   
   # Return a table for related artists based on user input
+<<<<<<< HEAD
   output$table_2 <- renderTable(related_artists(input$yvar))
+=======
+  output$table_2 <- renderTable(
+    related_artists(input$yvar)
+  )
+>>>>>>> 1425d46111e2a9db39f87edafee0942965b82d88
 })

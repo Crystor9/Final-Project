@@ -116,6 +116,13 @@ shinyUI(navbarPage(
             label = "Type Artist's First Name for Related Artists (For Table)",
             value = "Taylor"
           )
+        ),
+        
+        textInput(
+          "yvar",
+          label = "Search related artists using the first name of choice artist 
+                  (For Table)",
+          value = "Marshmello"
         )
       ),
 
