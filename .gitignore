@@ -33,5 +33,5 @@ vignettes/*.pdf
 *.knit.md
 
 # Hide Key
-scripts/spotify-source-code.R
+.scripts/spotify-source-code.R
 
