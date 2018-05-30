@@ -50,4 +50,6 @@ shinyServer(function(input, output) {
     }
     return(build_pie(data, input$related))
   })
+  
+  output$table_2 <- renderTable(related_artists(input$yvar))
 })

@@ -48,8 +48,9 @@ related_artists <- function(artist) {
   artist_type <- data["type"]
   
   # Creates and returns a new data frame.
-  df <- data.frame("Name" = artist_names, "Type" = artist_type, "Num_Followers" = num_followers_df, 
-                   "Popularity" = artist_popularity, "Link" = link_data_frame)
+  df <- data.frame(artist_names, artist_type,  num_followers_df, 
+                   artist_popularity, link_data_frame)
+  colnames(df) <- c("Name", "Type", "Followers", "Popularity_%", "Spotify_Link")
   df <- head(df, 10)
 }
 

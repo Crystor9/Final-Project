@@ -78,12 +78,20 @@ shinyUI(navbarPage(
             "Pink" = "pink", "Taylor Swift" = "taylor",
             "The Chainsmokers" = "chainsmokers"
           )
+        ),
+        
+        textInput(
+          "yvar",
+          label = "Type artist's first name for related artists (For Table)",
+          value = "taylor"
         )
       ),
 
       # Create a main panel to display the pie plot
-      mainPanel(
-        plotlyOutput("pie")
+      mainPanel(tabsetPanel(
+        tabPanel("Pie Chart",plotlyOutput("pie")),
+        tabPanel("Search Artists", tableOutput("table_2"))
+        )
       )
     )
   )
