@@ -33,4 +33,4 @@ vignettes/*.pdf
 *.knit.md
 
 # hide source code
-scripts/spotify_source_code.R
+spotify_source_code.R

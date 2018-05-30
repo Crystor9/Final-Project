@@ -11,19 +11,19 @@ source("scripts/top_tracks.R")
 build_scatter <- function(data) {
   p <- plot_ly(
     data,
-    x = ~ Artist,
-    y = ~ Popularity,
-    color = ~ Release_Date,
+    x = ~ artist_name,
+    y = ~ popularity,
+    color = ~ release_date,
     type = "scatter",
     
     # Display album name, track name, and release date when hover over
     text = paste(
       "Track:",
-      data$Track,
+      data$track_name,
       "<br>Album:",
-      data$Album,
+      data$album_name,
       "<br>Time:",
-      data$Release_Date
+      data$release_date
     )
   ) %>%
     layout(

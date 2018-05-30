@@ -20,11 +20,11 @@ shinyServer(function(input, output) {
     # Filter data based on choices of artist and release year
     if (input$artist != "ALL") {
       data <- data %>%
-        filter(Artist == input$artist)
+        filter(artist_name == input$artist)
     }
     if (input$year != "ALL") {
       data <- data %>%
-        filter(Release_Year == input$year)
+        filter(year == input$year)
     }
     return(build_scatter(data))
   })
@@ -36,14 +36,27 @@ shinyServer(function(input, output) {
     # Filter data based on choices of artist and release year
     if (input$artist != "ALL") {
       data <- data %>%
-        filter(Artist == input$artist)
+        filter(artist_name == input$artist)
     }
     if (input$year != "ALL") {
       data <- data %>%
-        filter(Release_Year == input$year)
+        filter(year == input$year)
     }
+    colnames(data) <- c(
+      "Release Year",
+      "Release Date",
+      "Artist",
+      "Track",
+      "Album",
+      "Track Number",
+      "Popularity",
+      "Link"
+    )
+    data$Album <-
+      paste0("<a href='", data$Link, "'>", data$Album, "</a>")
+    data$Link <- NULL
     data
-  }))
+  }, escape = F, class = "cell-border stripe"))
   
   # Return a pie chart for related artists information
   output$pie <- renderPlotly({
@@ -60,6 +73,13 @@ shinyServer(function(input, output) {
     if (input$related != "All") {
       data <- related_artists(input$related)
     }
+    colnames(data) <- c(
+      "Name",
+      "Type",
+      "Number of Followers",
+      "Popularity",
+      "Link"
+    )
     data
   })
 })
