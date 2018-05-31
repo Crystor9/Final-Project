@@ -16,7 +16,7 @@ shinyServer(function(input, output) {
   # Return a scatter plot for popularity of artists' top tracks
   output$scatter <- renderPlotly({
     data <- combined_data_frame
-    
+
     # Filter data based on choices of artist and release year
     if (input$artist != "ALL") {
       data <- data %>%
@@ -28,11 +28,11 @@ shinyServer(function(input, output) {
     }
     return(build_scatter(data))
   })
-  
+
   # Return a table that contains information about artists' top tracks
   output$table <- DT::renderDataTable(DT::datatable({
     data <- combined_data_frame
-    
+
     # Filter data based on choices of artist and release year
     if (input$artist != "ALL") {
       data <- data %>%
@@ -57,7 +57,7 @@ shinyServer(function(input, output) {
     data$Link <- NULL
     data
   }, escape = F, class = "cell-border stripe"))
-  
+
   # Return a pie chart for related artists information
   output$pie <- renderPlotly({
     data <- combined_df
@@ -66,7 +66,7 @@ shinyServer(function(input, output) {
     }
     return(build_pie(data))
   })
-  
+
   # Return a table for related artists based on user input
   output$table_2 <- renderTable(
     related_artists(input$yvar)

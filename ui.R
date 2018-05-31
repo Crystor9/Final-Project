@@ -25,14 +25,20 @@ shinyUI(navbarPage(
   tabPanel(
     div(
       class = "tab-title",
-      
-    "Overview"),
+
+      "Overview"
+    ),
     titlePanel(""),
     mainPanel(
       img(
-        src = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg", 
+        src =
+          paste0(
+            "https://upload.wikimedia.org/wikipedia/commons",
+            "/1/19/Spotify_logo_without_text.svg"
+          ),
         height = "140",
-        width = "140"),
+        width = "140"
+      ),
       includeHTML("project.html")
     )
   ),
@@ -114,15 +120,17 @@ shinyUI(navbarPage(
               "The Chainsmokers" = "chainsmokers"
             )
           ),
-          
-        textInput(
-          "yvar",
-          label = "Search related artists using the first name of choice artist 
-                  (For Table)",
-          value = "Marshmello"
+
+          textInput(
+            "yvar",
+            label = paste0(
+              "Search related artists using the first name of",
+              "choice artist (For Table)"
+            ),
+            value = "Marshmello"
+          )
         )
-      )
-    ),
+      ),
 
       # Create a main panel to display information regarding related artists
       mainPanel(

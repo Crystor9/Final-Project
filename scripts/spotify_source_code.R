@@ -1,4 +1,4 @@
-# To be used for getting data from Spotify
+# File to be used for getting data from Spotify
 source("api.R")
 
 # Create a source for getting data from Spotify (POST)

@@ -14,7 +14,6 @@ related_artists <- function(artist) {
   response1 <-
     GET(url = search_uri, add_headers(Authorization = header_value))
   search_artist <- content(response1)
-  
   artist_id <- search_artist[["artists"]][["items"]][[1]][["id"]]
   tracks_uri <- paste0(
     "https://api.spotify.com/v1/artists/",
@@ -23,14 +22,13 @@ related_artists <- function(artist) {
   )
   response2 <-
     GET(url = tracks_uri, add_headers(Authorization = header_value))
-  
   related_artist_list <- content(response2)
   data <- data.frame(t(sapply(related_artist_list$artists, c)))
-  
+
   # Get's the names of the related artists
   names <- data[["name"]]
   artist_names <- ldply(names, data.frame)
-  
+
   # Get's the link to the related artist's
   link_column <- data[, "external_urls"]
   turn_data_frame <- function(list) {
@@ -38,19 +36,19 @@ related_artists <- function(artist) {
   }
   link_data_frame <-
     do.call("rbind", lapply(link_column, turn_data_frame))
-  
+
   # Get's the aggregate popularity of the artist
   popularity <- data[["popularity"]]
   artist_popularity <- ldply(popularity, data.frame)
-  
+
   # Get's the number of followers of the particular artists
   followers <- data[, "followers"]
   num_followers <- lapply(followers, `[[`, 2)
   num_followers_df <- ldply(num_followers, data.frame)
-  
+
   # Display's the type of artist
   artist_type <- data["type"]
-  
+
   # Creates and returns a new data frame.
   df <- data.frame(artist_names,
                    artist_type,
